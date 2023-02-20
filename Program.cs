@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -80,7 +80,6 @@ namespace SetRandomIdealProcessor
 
                         // Set a random ideal processor, unless the current one is 11 (max value)
                         int idealProcessor = processorNumber.Number;
-                        if (idealProcessor != 11)
                         {
                             int newIdealProcessor;
                             do
