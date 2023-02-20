@@ -3,4 +3,4 @@ Thread Rebalance is a program that rebalances threads within a process, which in
 
 Usage
 -----
-Type `ThreadRebalance <PID or Process Name> <interval>' to rebalance threads in process.
+Type `ThreadRebalance <PID or Process Name> <interval>` to rebalance threads in process.
