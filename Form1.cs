@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -88,6 +88,9 @@ namespace ThreadRebalanceGUI
                 return;
             }
             label5.Text = "running";
+            
+            button1.Enabled = false;
+            button2.Enabled = true;
             // Run the Core() method in a separate thread
             RebalanceCore rebalanceCore = new RebalanceCore();
             await Task.Run(() => rebalanceCore.Core(pid, interval));
@@ -110,8 +113,11 @@ namespace ThreadRebalanceGUI
         // stop
         private void button2_Click(object sender, EventArgs e)
         {
+            button1.Enabled = true;
+            button2.Enabled = false;
             RebalanceCore.StopRebalancing();
             label5.Text = "not running";
+            
         }
 
         private void label5_Click(object sender, EventArgs e)
