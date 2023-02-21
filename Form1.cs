@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,12 +18,13 @@ namespace ThreadRebalanceGUI
     {
         private void DisplayProcess()
         {
-            Process[] processes = Process.GetProcesses();
+            List<Process> processes = Process.GetProcesses().ToList();
+            processes = processes.OrderBy(o => o.ProcessName).ToList();
             foreach (Process p in processes)
             {
                 listBox1.Items.Add(p.ProcessName + " (ID: " + p.Id + ")");
             }
-
+            
         }
 
         private int selectedProcessId = -1;
@@ -63,7 +64,7 @@ namespace ThreadRebalanceGUI
                 MessageBox.Show("Please select a process from the list first.");
             }
         }
-
+        // rebalance
         private async void button1_Click(object sender, EventArgs e)
         {
             int pid = selectedProcessId;
@@ -86,13 +87,15 @@ namespace ThreadRebalanceGUI
                 MessageBox.Show("Please enter a valid interval value.");
                 return;
             }
-
+            label5.Text = "running";
             // Run the Core() method in a separate thread
             RebalanceCore rebalanceCore = new RebalanceCore();
             await Task.Run(() => rebalanceCore.Core(pid, interval));
 
             // Enable the rebalance button and disable the cancel button
+            
             RebalanceCore.StartRebalancing();
+            
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -104,9 +107,16 @@ namespace ThreadRebalanceGUI
 
         }
 
+        // stop
         private void button2_Click(object sender, EventArgs e)
         {
             RebalanceCore.StopRebalancing();
+            label5.Text = "not running";
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
