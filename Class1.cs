@@ -73,6 +73,7 @@ namespace ThreadRebalanceGUI
         {
             Process process = Process.GetProcessById(pid);
             Random random = new Random();
+            int processorCount = Environment.ProcessorCount;
 
             while (continueRebalancing)
             {
@@ -86,20 +87,18 @@ namespace ThreadRebalanceGUI
 
                         // Set a random ideal processor, unless the current one is 11 (max value)
                         int idealProcessor = processorNumber.Number;
+                        int newIdealProcessor;
+                        do
                         {
-                            int newIdealProcessor;
-                            do
-                            {
-                                newIdealProcessor = random.Next(0, Environment.ProcessorCount);
-                            } while (newIdealProcessor == idealProcessor);
+                            newIdealProcessor = random.Next(0, processorCount);
+                        } while (newIdealProcessor == idealProcessor);
 
-                            Console.WriteLine("Setting thread {0} ideal processor to {1}", thread.Id, newIdealProcessor);
-                            SetThreadIdealProcessor(hThread, newIdealProcessor);
-                            idealProcessor = newIdealProcessor;
-                        }
+                        Console.WriteLine("Setting thread {0} ideal processor to {1}", thread.Id, newIdealProcessor);
+                        SetThreadIdealProcessor(hThread, newIdealProcessor);
+                        idealProcessor = newIdealProcessor;
 
                         // Set the affinity mask to the ideal processor and the next available processor
-                        int nextProcessor = idealProcessor < Environment.ProcessorCount - 1 ? idealProcessor + 1 : random.Next(Environment.ProcessorCount);
+                        int nextProcessor = idealProcessor < processorCount - 1 ? idealProcessor + 1 : random.Next(processorCount);
                         IntPtr affinityMask = (IntPtr)((1 << idealProcessor) | (1 << nextProcessor));
                         SetThreadAffinityMask(hThread, affinityMask);
                     }
