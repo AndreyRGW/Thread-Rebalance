@@ -25,13 +25,13 @@ namespace ThreadRebalanceGUI
             InitializeComponent();
             DisplayProcess();
             InitializeProcessCheckTimer();
-            button1.Enabled = false; // Изначально кнопка "Rebalance" неактивна
+            button1.Enabled = false; // Initially, the "Rebalance" button is inactive
         }
 
         private void InitializeProcessCheckTimer()
         {
             processCheckTimer = new System.Windows.Forms.Timer();
-            processCheckTimer.Interval = 1000; // Проверка каждую секунду
+            processCheckTimer.Interval = 1000; // Check every second
             processCheckTimer.Tick += ProcessCheckTimer_Tick;
             processCheckTimer.Start();
         }
@@ -51,7 +51,7 @@ namespace ThreadRebalanceGUI
 
         private void DisplayProcess()
         {
-            listBox1.Items.Clear(); // Очищаем listBox1 перед добавлением новых процессов
+            listBox1.Items.Clear(); // Clear listBox1 before adding new processes
 
             var processes = Process.GetProcesses()
                                    .OrderBy(p => p.ProcessName)
@@ -62,7 +62,7 @@ namespace ThreadRebalanceGUI
             int totalProcesses = processes.Count;
             int totalThreads = processes.Sum(p => p.Threads.Count);
 
-            label9.Text = $"{totalProcesses} (threads {totalThreads})";
+            label9.Text = $"{totalProcesses} (threads {totalThreads})"; // Update the label with total processes and threads
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -83,7 +83,7 @@ namespace ThreadRebalanceGUI
                 label3.Text = $"{selectedProcessName} (ID: {selectedProcessId})";
 
                 selectedProcessInstance = Process.GetProcessById(selectedProcessId);
-                button1.Enabled = true; // Активируем кнопку "Rebalance" после выбора процесса
+                button1.Enabled = true; // Activate the "Rebalance" button after selecting a process
             }
             else
             {
@@ -144,7 +144,7 @@ namespace ThreadRebalanceGUI
 
         private async void button5_Click(object sender, EventArgs e)
         {
-            button5.Enabled = false;
+            button5.Enabled = false; // Disable the button to prevent multiple clicks
 
             int totalProcesses = 0;
             int totalThreads = 0;
@@ -166,21 +166,21 @@ namespace ThreadRebalanceGUI
                     totalThreads += process.Threads.Count;
 
                     RebalanceCoreSingle rebalanceCoreSingle = new RebalanceCoreSingle();
-                    await Task.Run(() => rebalanceCoreSingle.Core(processId));
+                    await Task.Run(() => rebalanceCoreSingle.Core(processId)); // Run the rebalancing task asynchronously
                     successfulRebalances++;
                 }
                 catch (Exception ex)
                 {
-                    // Выводим сообщение об ошибке для отладки
-                    Console.WriteLine($"Ошибка при обработке процесса с ID {processId}: {ex.Message}");
+                    // Displaying an error message for debugging
+                    Console.WriteLine($"Error processing process with ID {processId}: {ex.Message}");
                     failedRebalances++;
                 }
             }
 
-            label9.Text = $"{totalProcesses} (threads {totalThreads})";
-            label10.Text = $"{successfulRebalances} (with errors: {failedRebalances})";
+            label9.Text = $"{totalProcesses} (threads {totalThreads})"; // Update the label with total processes and threads
+            label10.Text = $"{successfulRebalances} (with errors: {failedRebalances})"; // Update the label with successful and failed rebalances
 
-            button5.Enabled = true;
+            button5.Enabled = true; // Re-enable the button
         }
     }
 }
