@@ -41,6 +41,12 @@ namespace ThreadRebalanceGUI
             this.label5 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -56,7 +62,7 @@ namespace ThreadRebalanceGUI
             // button2
             // 
             this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(413, 162);
+            this.button2.Location = new System.Drawing.Point(410, 162);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(130, 46);
             this.button2.TabIndex = 1;
@@ -141,17 +147,78 @@ namespace ThreadRebalanceGUI
             // 
             this.button4.Location = new System.Drawing.Point(329, 73);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(207, 33);
+            this.button4.Size = new System.Drawing.Size(211, 33);
             this.button4.TabIndex = 10;
             this.button4.Text = "Refresh Process List";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(559, 13);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(141, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "!! EXPERIMENTAL ZONE !!";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(562, 73);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(228, 135);
+            this.button5.TabIndex = 12;
+            this.button5.Text = "Rebalance All Process";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(560, 30);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(101, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Running processes:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(559, 49);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(119, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Rebalanced processes:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(667, 30);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(69, 13);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "0 (threads: 0)";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(684, 49);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(82, 13);
+            this.label10.TabIndex = 16;
+            this.label10.Text = "0 (with errors: 0)";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 220);
+            this.ClientSize = new System.Drawing.Size(802, 220);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label5);
@@ -165,7 +232,7 @@ namespace ThreadRebalanceGUI
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Thread Rebalance V1.3";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -190,6 +257,12 @@ namespace ThreadRebalanceGUI
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }
 

@@ -51,11 +51,18 @@ namespace ThreadRebalanceGUI
 
         private void DisplayProcess()
         {
+            listBox1.Items.Clear(); // Очищаем listBox1 перед добавлением новых процессов
+
             var processes = Process.GetProcesses()
                                    .OrderBy(p => p.ProcessName)
                                    .Select(p => $"{p.ProcessName} (ID: {p.Id})")
                                    .ToList();
             listBox1.Items.AddRange(processes.ToArray());
+
+            int totalProcesses = processes.Count;
+            int totalThreads = processes.Sum(p => Process.GetProcessById(int.Parse(p.Substring(p.IndexOf("(ID: ") + 5, p.IndexOf(")") - p.IndexOf("(ID: ") - 5))).Threads.Count);
+
+            label9.Text = $"{totalProcesses} (threads {totalThreads})";
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -114,6 +121,7 @@ namespace ThreadRebalanceGUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            DisplayProcess();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -128,6 +136,54 @@ namespace ThreadRebalanceGUI
         {
             listBox1.Items.Clear();
             DisplayProcess();
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private async void button5_Click(object sender, EventArgs e)
+        {
+            button5.Enabled = false;
+
+            int totalProcesses = 0;
+            int totalThreads = 0;
+            int successfulRebalances = 0;
+            int failedRebalances = 0;
+
+            foreach (var item in listBox1.Items)
+            {
+                string processInfo = item.ToString();
+                int startIndex = processInfo.IndexOf("(ID: ") + 5;
+                int endIndex = processInfo.IndexOf(")", startIndex);
+                string processIdString = processInfo.Substring(startIndex, endIndex - startIndex);
+                int processId = int.Parse(processIdString);
+
+                try
+                {
+                    Process process = Process.GetProcessById(processId);
+                    totalProcesses++;
+                    totalThreads += process.Threads.Count;
+
+                    RebalanceCoreSingle rebalanceCoreSingle = new RebalanceCoreSingle();
+                    await Task.Run(() => rebalanceCoreSingle.Core(processId));
+                    successfulRebalances++;
+                }
+                catch (Exception ex)
+                {
+                    // Выводим сообщение об ошибке для отладки
+                    Console.WriteLine($"Ошибка при обработке процесса с ID {processId}: {ex.Message}");
+                    failedRebalances++;
+                }
+            }
+
+            label9.Text = $"{totalProcesses} (threads {totalThreads})";
+            label10.Text = $"{successfulRebalances} (with errors: {failedRebalances})";
+
+            button5.Enabled = true;
         }
     }
 }
