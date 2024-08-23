@@ -55,12 +55,12 @@ namespace ThreadRebalanceGUI
 
             var processes = Process.GetProcesses()
                                    .OrderBy(p => p.ProcessName)
-                                   .Select(p => $"{p.ProcessName} (ID: {p.Id})")
                                    .ToList();
-            listBox1.Items.AddRange(processes.ToArray());
+
+            listBox1.Items.AddRange(processes.Select(p => $"{p.ProcessName} (ID: {p.Id})").ToArray());
 
             int totalProcesses = processes.Count;
-            int totalThreads = processes.Sum(p => Process.GetProcessById(int.Parse(p.Substring(p.IndexOf("(ID: ") + 5, p.IndexOf(")") - p.IndexOf("(ID: ") - 5))).Threads.Count);
+            int totalThreads = processes.Sum(p => p.Threads.Count);
 
             label9.Text = $"{totalProcesses} (threads {totalThreads})";
         }
@@ -140,10 +140,7 @@ namespace ThreadRebalanceGUI
 
         private void label7_Click(object sender, EventArgs e)
         {
-
         }
-
-
 
         private async void button5_Click(object sender, EventArgs e)
         {

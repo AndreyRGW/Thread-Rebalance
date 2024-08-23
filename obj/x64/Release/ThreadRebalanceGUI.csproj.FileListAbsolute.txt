@@ -1,0 +1,10 @@
+C:\vsproject\Thread-Rebalance\bin\x64\Release\ThreadRebalanceGUI.exe.config
+C:\vsproject\Thread-Rebalance\bin\x64\Release\ThreadRebalanceGUI.exe
+C:\vsproject\Thread-Rebalance\bin\x64\Release\ThreadRebalanceGUI.pdb
+C:\vsproject\Thread-Rebalance\obj\x64\Release\ThreadRebalanceGUI.csproj.AssemblyReference.cache
+C:\vsproject\Thread-Rebalance\obj\x64\Release\ThreadRebalanceGUI.Form1.resources
+C:\vsproject\Thread-Rebalance\obj\x64\Release\ThreadRebalanceGUI.Properties.Resources.resources
+C:\vsproject\Thread-Rebalance\obj\x64\Release\ThreadRebalanceGUI.csproj.GenerateResource.cache
+C:\vsproject\Thread-Rebalance\obj\x64\Release\ThreadRebalanceGUI.csproj.CoreCompileInputs.cache
+C:\vsproject\Thread-Rebalance\obj\x64\Release\ThreadRebalanceGUI.exe
+C:\vsproject\Thread-Rebalance\obj\x64\Release\ThreadRebalanceGUI.pdb
